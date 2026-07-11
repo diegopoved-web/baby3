@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commission Rules of Procedure · EPSO-style MCQ · Hard mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-0:#081634;
+    --blue-1:#0c2150;
+    --blue-line:rgba(255,255,255,.12);
+    --ivory:#FAF7EF;
+    --ivory-2:#EFE9DA;
+    --gold:#FFCC00;
+    --gold-soft:#F6D873;
+    --gold-deep:#C99700;
+    --ink:#14203c;
+    --known:#3FB984;
+    --known-deep:#2c9a6b;
+    --wrong:#C4453A;
+    --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Inter",system-ui,sans-serif;
+    color:#eef2fb;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, #1a3a82 0%, transparent 55%),
+      radial-gradient(900px 600px at -10% 110%, #0e2a66 0%, transparent 50%),
+      linear-gradient(160deg, var(--blue-1) 0%, var(--blue-0) 100%);
+    background-attachment:fixed;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+
+  /* ---------- Masthead ---------- */
+  .mast{display:flex;align-items:center;gap:14px;padding:8px 2px 22px}
+  .mast .ring-mini{flex:0 0 auto}
+  .mast h1{font-family:"Newsreader",serif;font-weight:500;font-size:1.42rem;line-height:1.1;margin:0;color:#fff}
+  .mast .sub{margin:3px 0 0;font-size:.78rem;color:#9fb0d6;letter-spacing:.3px}
+  .mast .sub b{color:var(--gold-soft);font-weight:600}
+
+  /* ---------- Star ring ---------- */
+  .ring{position:relative;display:inline-block}
+  .ring .star{
+    position:absolute;top:50%;left:50%;transform-origin:center;
+    color:rgba(255,255,255,.16);line-height:1;pointer-events:none;
+    transition:color .45s ease, text-shadow .45s ease;
+  }
+  .ring .star.lit{color:var(--gold);text-shadow:0 0 8px rgba(255,204,0,.55)}
+  .ring .center{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;font-family:"Inter";font-weight:700;color:#fff;line-height:1;
+  }
+
+  /* ---------- Home ---------- */
+  .intro{
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid var(--blue-line);border-radius:16px;padding:16px 18px;margin-bottom:22px;
+  }
+  .intro p{margin:0;font-size:.9rem;line-height:1.55;color:#c9d4ee}
+  .intro .how{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:.72rem;color:#0a1c44;background:var(--gold-soft);padding:4px 10px;border-radius:999px;font-weight:600}
+  .chip.ghost{background:transparent;color:#9fb0d6;border:1px solid var(--blue-line);font-weight:500}
+
+  .secthead{display:flex;align-items:baseline;justify-content:space-between;margin:0 4px 12px}
+  .secthead .eyebrow{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:#8aa0cf}
+  .secthead .tally{font-size:.78rem;color:#aebbdc}
+
+  .mods{display:flex;flex-direction:column;gap:12px}
+  .mod{
+    width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;gap:16px;
+    background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+    border:1px solid var(--blue-line);border-radius:16px;padding:15px 16px;
+    color:inherit;font-family:inherit;
+    transition:transform .15s ease, border-color .2s ease;
+  }
+  .mod:hover{transform:translateY(-2px);border-color:rgba(255,204,0,.35)}
+  .mod:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mod .num{font-family:"Newsreader",serif;font-size:1.5rem;color:var(--gold-soft);width:30px;flex:0 0 auto;text-align:center}
+  .mod .body{flex:1 1 auto;min-width:0}
+  .mod .title{font-family:"Newsreader",serif;font-size:1.06rem;color:#fff;margin:0 0 2px;font-weight:500}
+  .mod .blurb{font-size:.78rem;color:#a9b6d8;margin:0;line-height:1.4}
+  .mod .barwrap{margin-top:9px;height:5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+  .mod .bar{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold-soft));transition:width .5s ease}
+  .mod .bar.done{background:linear-gradient(90deg,var(--known),#6fe0ab)}
+  .mod .ring-wrap{flex:0 0 auto}
+
+  .toolbar{display:flex;gap:10px;margin-top:22px;justify-content:center;flex-wrap:wrap}
+  .tbtn{
+    font-family:inherit;font-size:.8rem;color:#bcc8e6;background:transparent;
+    border:1px solid var(--blue-line);border-radius:999px;padding:8px 16px;cursor:pointer;
+    transition:border-color .2s ease,color .2s ease;
+  }
+  .tbtn:hover{border-color:rgba(255,204,0,.4);color:#fff}
+  .tbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* ---------- Study ---------- */
+  .study{display:none}
+  .study.active{display:block}
+  .home.hidden{display:none}
+
+  .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .back{
+    font-family:inherit;cursor:pointer;color:#cdd8f2;background:transparent;border:none;
+    font-size:.86rem;display:inline-flex;align-items:center;gap:6px;padding:6px 4px;
+  }
+  .back:hover{color:#fff}
+  .back:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+  .topbar .deckname{font-family:"Newsreader",serif;font-size:1.04rem;color:#fff;flex:1 1 auto;min-width:0;font-weight:500}
+  .topbar .deckname span{display:block;font-family:"Inter";font-size:.72rem;color:#9fb0d6;font-weight:400}
+
+  .studyhead{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:14px}
+  .studyhead .counter{font-size:.8rem;color:#aebbdc;letter-spacing:.04em}
+  .studyhead .counter b{color:#fff;font-weight:600}
+  .studyhead .score{font-size:.8rem;color:#8fd6b4}
+
+  .qcard{
+    background:linear-gradient(180deg,#15347c,#0e2358);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:22px;padding:24px 22px;box-shadow:var(--shadow);
+  }
+  .qcard .tag{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--gold-soft);margin-bottom:12px}
+  .qcard .q{font-family:"Newsreader",serif;font-size:1.22rem;line-height:1.35;color:#fff;margin:0 0 18px}
+
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{
+    width:100%;text-align:left;cursor:pointer;font-family:inherit;
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.14);
+    border-radius:14px;padding:13px 14px;color:#e6ecfa;font-size:.9rem;line-height:1.45;
+    transition:border-color .15s ease, background .15s ease, opacity .2s ease;
+  }
+  .opt:hover:not(:disabled){border-color:rgba(255,204,0,.45);background:rgba(255,255,255,.08)}
+  .opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .opt:disabled{cursor:default}
+  .opt .letter{
+    flex:0 0 auto;width:24px;height:24px;border-radius:99px;margin-top:1px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.72rem;font-weight:700;color:#0a1c44;background:var(--gold-soft);
+  }
+  .opt.correct{background:rgba(63,185,132,.18);border-color:var(--known);color:#eafff4}
+  .opt.correct .letter{background:var(--known);color:#fff}
+  .opt.wrong{background:rgba(196,69,58,.16);border-color:var(--wrong);color:#ffe9e6}
+  .opt.wrong .letter{background:var(--wrong);color:#fff}
+  .opt.dim{opacity:.45}
+
+  .explain{
+    display:none;margin-top:16px;border-radius:16px;padding:16px 18px;
+    background:linear-gradient(180deg,var(--ivory),var(--ivory-2));
+    border:1px solid rgba(20,32,60,.1);color:var(--ink);
+    font-size:.92rem;line-height:1.55;
+  }
+  .explain.show{display:block}
+  .explain .vh{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin:0 0 6px}
+  .explain.good .vh{color:var(--known-deep)}
+  .explain.bad .vh{color:var(--wrong)}
+  .explain p{margin:0}
+  .explain strong{font-weight:700}
+  .explain em{color:#4a577a}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:10px}
+  .nbtn{
+    font-family:inherit;font-size:.82rem;color:#cdd8f2;background:rgba(255,255,255,.06);
+    border:1px solid var(--blue-line);border-radius:999px;padding:9px 16px;cursor:pointer;
+    transition:border-color .2s,color .2s;
+  }
+  .nbtn:hover{border-color:rgba(255,204,0,.4);color:#fff}
+  .nbtn:disabled{opacity:.35;cursor:default}
+  .nbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .nbtn.primary{background:linear-gradient(180deg,var(--gold),#e6b800);color:#0a1c44;font-weight:700;border:none;padding:10px 22px}
+
+  .filterrow{display:flex;justify-content:center;margin-top:16px}
+  .toggle{
+    font-family:inherit;font-size:.76rem;color:#9fb0d6;background:transparent;
+    border:1px solid var(--blue-line);border-radius:999px;padding:7px 14px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;transition:all .2s;
+  }
+  .toggle.on{background:rgba(255,204,0,.12);border-color:rgba(255,204,0,.5);color:#fff}
+  .toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .dot{width:7px;height:7px;border-radius:99px;background:#6c748c}
+  .toggle.on .dot{background:var(--gold)}
+
+  .done-banner{
+    text-align:center;background:linear-gradient(180deg,rgba(63,185,132,.16),rgba(63,185,132,.06));
+    border:1px solid rgba(63,185,132,.4);border-radius:18px;padding:22px;margin-top:4px;display:none;
+  }
+  .done-banner.show{display:block}
+  .done-banner h3{font-family:"Newsreader",serif;font-weight:500;color:#fff;margin:8px 0 6px;font-size:1.2rem}
+  .done-banner p{margin:0;color:#bfe6d3;font-size:.86rem}
+
+  .foot{text-align:center;margin-top:30px;font-size:.74rem;color:#7e8db0;line-height:1.5}
+
+  @media (max-width:480px){
+    .wrap{padding:18px 14px 56px}
+    .qcard .q{font-size:1.1rem}
+    .mod .blurb{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition-duration:.001ms !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HOME ============ -->
+  <section class="home" id="home">
+    <header class="mast">
+      <div class="ring-mini" id="mastRing"></div>
+      <div>
+        <h1>Commission Rules of Procedure</h1>
+        <p class="sub">Decision (EU) 2024/3080 · <b>Hard mode</b> · Art 1–68</p>
+      </div>
+    </header>
+
+    <div class="intro">
+      <p>Built from the 2024 Rules of Procedure of the Commission (Articles 1–68), written the way EPSO writes them: four options that are <strong>almost identical</strong> — same sentence, one changed deadline, procedure or actor (<em>consent</em> vs <em>consulting</em>). A correct first tap counts as mastered; a wrong one keeps the question in your review pool.</p>
+      <div class="how">
+        <span class="chip">Official exam style</span>
+        <span class="chip ghost">6 modules</span>
+        <span class="chip ghost">Options reshuffled each time</span>
+      </div>
+    </div>
+
+    <div class="secthead">
+      <span class="eyebrow">How the Commission decides</span>
+      <span class="tally" id="globalTally">—</span>
+    </div>
+
+    <div class="mods" id="modList"></div>
+
+    <div class="toolbar">
+      <button class="tbtn" id="reviewAllBtn">Full mock (all modules, shuffled)</button>
+      <button class="tbtn" id="resetBtn">Reset progress</button>
+    </div>
+
+    <p class="foot">Train to spot the ONE word that changes between options:<br>the deadline (9, 5, 3 or 10 days), who decides, who merely proposes.</p>
+  </section>
+
+  <!-- ============ STUDY ============ -->
+  <section class="study" id="study">
+    <div class="topbar">
+      <button class="back" id="backBtn">‹ Back</button>
+      <div class="deckname" id="deckName">—<span id="deckSub"></span></div>
+      <div class="ring-mini" id="deckRing"></div>
+    </div>
+
+    <div class="studyhead">
+      <span class="counter">Question <b id="cardPos">1</b> of <b id="cardTotal">1</b></span>
+      <span class="score" id="sessScore"></span>
+    </div>
+
+    <div class="qcard" id="qcard">
+      <div class="tag" id="frontTag">Module</div>
+      <p class="q" id="qText">—</p>
+      <div class="opts" id="opts"></div>
+      <div class="explain" id="explain">
+        <p class="vh" id="verdictHead">Correct</p>
+        <p id="expText">—</p>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="nbtn" id="prevBtn">‹ Previous</button>
+      <button class="nbtn primary" id="nextBtn" style="visibility:hidden">Next ›</button>
+      <button class="nbtn" id="shuffleBtn">Shuffle</button>
+    </div>
+
+    <div class="filterrow">
+      <button class="toggle" id="missesToggle"><span class="dot"></span>Review only what I haven't mastered</button>
+    </div>
+
+    <div class="done-banner" id="doneBanner">
+      <div class="ring-mini" id="doneRing" style="margin:0 auto"></div>
+      <h3>Module mastered</h3>
+      <p>Every question answered correctly. Come back in a few days — spaced repetition is what makes it stick for exam day.</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================ DATA ============================
+   Each question: q, opts (index 0 = correct; shuffled at render), exp
+================================================================ */
+const MODULES = [
+/* ==================== MODULE 1: COLLEGE, PRESIDENT & MEMBERS ==================== */
+{ id:"m1", n:"1", name:"College, President & Members", blurb:"Art 1–5 · collegiality · what the President alone decides",
+  cards:[
+    {q:"Under Article 2, any position diverging from the position originally adopted by the Commission:",
+     opts:["Shall be collegially approved before being presented by Commission representatives to other institutions, Member States, third countries or other third parties.",
+           "May be presented by the Member of the Commission responsible, who shall inform the College afterwards.",
+           "Shall be approved by the President before being presented externally.",
+           "Is prohibited: positions adopted by the Commission may never be modified during the legislative procedure."],
+     exp:"The collegiality rule of Article 2(5): a diverging position needs <strong>COLLEGIAL approval BEFORE</strong> external presentation — not the President alone, not ex-post information. Members must otherwise <strong>respect, promote and support</strong> adopted positions throughout the legislative procedure."},
+    {q:"Under Article 3, the order of precedence of Members of the Commission other than the Vice-Presidents is based on:",
+     opts:["Their seniority in the Commission or, in the event of equal seniority, on their age.",
+           "Their age or, in the event of equal age, on their seniority in the Commission.",
+           "The alphabetical order of their Member States.",
+           "The order in which their portfolios appear in the President's mission letters."],
+     exp:"<strong>Seniority first, age as the tie-break</strong> — the President adopts the precedence decision. Compare the deputising cascade of Article 52: grade → seniority in grade → eldest. Same logic, different list."},
+    {q:"Which statement about the President's powers over the Members of the Commission is correct?",
+     opts:["The President structures and allocates responsibilities, may reshuffle them during the term, sends mission letters at the beginning of the term, and a Member shall resign if the President so requests.",
+           "The President allocates responsibilities once at the beginning of the term and may not change them without the College's approval.",
+           "The President may request a Member's resignation only with the approval of the European Parliament.",
+           "The President appoints all Vice-Presidents, including the High Representative, from among the Members."],
+     exp:"All four elements sit in Article 3: allocation <strong>and reshuffling</strong> of portfolios (Art 248 TFEU), <strong>mission letters</strong>, resignation <strong>on request</strong> (Art 17(6) TEU). The one carve-out: Vice-Presidents are appointed <strong>OTHER THAN the High Representative</strong>, who is Vice-President by virtue of the Treaty."},
+    {q:"Under Article 3(6), groups of Members of the Commission are set up:",
+     opts:["By the President, whose decision determines the mandate, composition, duration and working methods of the group and appoints the Member(s) leading it.",
+           "By the College, on a proposal from the President, by oral procedure.",
+           "By the Secretary-General, who also provides their secretariat.",
+           "By the Vice-Presidents, each for their respective policy cluster."],
+     exp:"Groups of Members are a <strong>Presidential prerogative</strong> — mandate, composition, duration, working methods, leadership, all in the President's decision. The <strong>Secretary-General provides the secretariat</strong> of these groups (Art 50(2)) but does not create them."},
+    {q:"Under Article 5, the President takes stock of the current year and sets out the Commission's priorities for the future in:",
+     opts:["The State of the Union address in the European Parliament, each year.",
+           "The annual work programme presented to the European Council.",
+           "The mission letters addressed to the Members of the Commission.",
+           "The orientation debates held at the President's initiative."],
+     exp:"The <strong>State of the Union address before the EP</strong> — anchored in the Framework Agreement with the Parliament. The work programme (with its <strong>list of main initiatives</strong>, updatable during the year) and the draft budget are adopted by the <strong>Commission</strong> annually in line with the President's political guidelines."},
+    {q:"Under Article 4, the Members of the Commission perform their duties:",
+     opts:["In complete independence, under the authority of the President, neither seeking nor taking instructions from any government or other institution, body, office or entity.",
+           "In complete independence, without being subject to any authority, including that of the President.",
+           "Under the joint authority of the President and the European Council.",
+           "In complete independence, save for instructions from the European Parliament in the exercise of its supervisory role."],
+     exp:"The two halves must be held together: <strong>complete independence from outside instructions</strong> (Art 17(3) TEU) AND <strong>'under the authority of the President'</strong>. Each Member has a <strong>cabinet</strong>, whose composition and operation are governed by a <strong>decision of the President</strong>."},
+    {q:"The legal bases cited for the 2024 Rules of Procedure include:",
+     opts:["Article 17 TEU and Article 249 TFEU.",
+           "Article 17 TEU and Article 250 TFEU.",
+           "Article 245 TFEU and Article 290 TFEU.",
+           "Article 15 TEU and Article 297 TFEU."],
+     exp:"<strong>Article 249 TFEU</strong> is the provision under which the Commission adopts its own Rules of Procedure (plus Art 17 TEU and Art 106a Euratom). Art 250 TFEU (majority of Members) governs voting — cited later, but it is not the enabling clause."}
+  ]},
+
+/* ==================== MODULE 2: MEETINGS & ORAL PROCEDURE ==================== */
+{ id:"m2", n:"2", name:"Meetings & oral procedure", blurb:"Art 6–16 · 9 working days · quorum, votes, PVO vs PVS",
+  cards:[
+    {q:"Article 6 lists the four types of decision-making procedure of the Commission. They are:",
+     opts:["Oral procedure, written procedure, empowerment procedure and delegation procedure.",
+           "Oral procedure, written procedure, urgent procedure and delegation procedure.",
+           "Oral procedure, written procedure, empowerment procedure and comitology procedure.",
+           "Ordinary procedure, expedited procedure, empowerment procedure and delegation procedure."],
+     exp:"<strong>Oral · written · empowerment · delegation</strong>. 'Urgent' and 'expedited' are sub-types of the written procedure, and comitology is a control mechanism, not a Commission decision-making procedure. Every draft act must first be entered in the <strong>IT system</strong>, unless the Secretary-General expressly decides otherwise."},
+    {q:"Under Article 9(5), a request to include an item on the agenda of a Commission meeting must be submitted to the President at least:",
+     opts:["Nine working days before the meeting, with the Secretary-General informed of any request.",
+           "Five working days before the meeting, with the Secretary-General informed of any request.",
+           "Nine calendar days before the meeting, through the Secretary-General.",
+           "Ten working days before the meeting, unless the Secretary-General accepts a late request."],
+     exp:"<strong>NINE working days</strong>, submitted by a Member <strong>to the PRESIDENT</strong> (the SG is informed); in exceptional circumstances <strong>the President</strong> — not the SG — may accept a late request. The other deadlines in the Rules (5, 3, 10 days, 48 hours) are the swap material."},
+    {q:"Under Article 12, the quorum for the Commission to take valid decisions is:",
+     opts:["A number of Members equal to the majority of its Members, with participants via telecommunication systems deemed present.",
+           "Two thirds of its Members, physically present.",
+           "A majority of its Members, excluding those participating remotely.",
+           "Half of its Members, including the President."],
+     exp:"Quorum = <strong>majority of Members</strong> (14 of 27); remote participants invited by the President under Art 7(3)/12(2) <strong>count towards the quorum</strong>. And <strong>absent Members cannot be replaced</strong> — cabinet chiefs do not sit in."},
+    {q:"Which statement about voting in the Commission under Article 13 is correct?",
+     opts:["A vote takes place at the initiative of the President or at the request of one or more Members; each Member has one non-delegable vote, and in certain exceptional circumstances the President may decide to hold a secret ballot.",
+           "Votes are taken on every draft act; each Member has one vote, which may be delegated to another Member in case of absence.",
+           "A vote takes place only at the President's initiative; the President has a casting vote in the event of a tie.",
+           "Votes are always by show of hands; secret ballots are prohibited by the principle of collegiality."],
+     exp:"Decisions are adopted <strong>by a majority of Members</strong> on a proposal from one or more Members; a formal vote happens at the <strong>President's initiative OR any Member's request</strong>; <strong>one vote each, no delegation</strong>; the President may exceptionally order a <strong>secret ballot</strong>. No casting vote exists — 14 votes are needed regardless."},
+    {q:"Under Article 15, which of the following may attend Commission meetings unless the President decides otherwise?",
+     opts:["The Secretary-General, the President's Head of Cabinet, the Director-General of the Legal Service, the Director-General for Communication, the Head of the Spokesperson's Service and the Director of the SG Directorate responsible for Decision-making and Collegiality.",
+           "The Secretary-General, all Heads of Cabinet, and the Director-General of the Legal Service.",
+           "The Secretary-General, the President's Head of Cabinet and the Directors-General whose files appear on the agenda.",
+           "Only the Members of the Commission; all staff require an invitation for each agenda item."],
+     exp:"The standing list of six: <strong>SG · President's Head of Cabinet · DG Legal Service · DG COMM · Head of Spokesperson's Service · Director for Decision-making and Collegiality</strong> (each replaceable by a representative). Others attend only by the President's invitation — and the President can <strong>restrict</strong> attendance at any time. Meetings are <strong>not public</strong> and discussions are confidential (Art 14)."},
+    {q:"Under Article 16, the special minutes ('PVS') of Commission meetings:",
+     opts:["Record the discussions and acts not covered by the ordinary minutes, the votes taken and the statements Members ask to have recorded — and they are classified.",
+           "Give an account of the conduct of the meeting and the adoption of acts, and are made public once approved.",
+           "Are drawn up by the President and authenticated by the Secretary-General alone.",
+           "Replace the ordinary minutes whenever a vote has been taken."],
+     exp:"Two sets of minutes: <strong>PVO — public once approved</strong> (conduct of meeting, discussions, adoption of acts); <strong>PVS — CLASSIFIED</strong> (votes, statements, everything else). Both drawn up by the <strong>Secretary-General</strong>, approved at a subsequent meeting, authenticated by the signatures of <strong>President AND Secretary-General</strong>."},
+    {q:"Under Article 8(4), an item on the agenda shall be carried over to a later meeting if:",
+     opts:["The documents were not made available within the Article 11(3) time limits, or a required language version is missing — in each case unless the President decides otherwise.",
+           "Any Member of the Commission so requests.",
+           "The Legal Service has issued a negative opinion.",
+           "The weekly meeting of Heads of Cabinet failed to reach agreement on it."],
+     exp:"Two carry-over triggers, both with a Presidential override: <strong>late documents</strong>, or a <strong>missing language version</strong> — where the President may instead seek approval <strong>'in principle' with an ad hoc empowerment</strong> to adopt once the versions arrive (the Art 35(2) bridge). Disagreement at Hebdo sends an item to debate, not to postponement."},
+    {q:"Under Article 10, items on the Commission agenda are prepared at the weekly meeting of the Heads of Cabinet, which is chaired by:",
+     opts:["The Secretary-General — while special meetings of cabinet members are chaired by a member of the President's cabinet.",
+           "A member of the President's cabinet — while special meetings of cabinet members are chaired by the Secretary-General.",
+           "The President's Head of Cabinet in all cases.",
+           "The Deputy Secretary-General, who reports to the Hebdo."],
+     exp:"<strong>Hebdo = Heads of Cabinet + SECRETARY-GENERAL in the chair; special (chefs) meetings = chaired by a member of the PRESIDENT'S CABINET</strong>, usually the week before. Matters agreed in preparation are in principle <strong>not reopened</strong>; agreement at Hebdo can mean adoption <strong>without debate</strong> — or by <strong>finalisation written procedure</strong>."}
+  ]},
+
+/* ==================== MODULE 3: WRITTEN PROCEDURE ==================== */
+{ id:"m3", n:"3", name:"Written procedure", blurb:"Art 17–28 · 5 vs 3 vs less-than-3 days · who can suspend",
+  cards:[
+    {q:"The time limit for an ordinary written procedure shall be no less than:",
+     opts:["Five working days from the date on which the draft act was made available to the Members.",
+           "Five calendar days from the date on which the procedure was initiated by the Secretary-General.",
+           "Three working days from the date on which the draft act was made available to the Members.",
+           "Ten working days from the date on which the draft act was made available to the Members."],
+     exp:"<strong>Five WORKING days, counted from availability of the draft act</strong> (Art 19(2)). The ladder: ordinary ≥5 · expedited 3 · urgent <3 · finalisation may be <5. Ten working days belongs to interservice consultation (Art 59) — the classic cross-contamination."},
+    {q:"In the expedited written procedure, the minimum time limit of three working days may be set:",
+     opts:["By the Secretary-General, with the authorisation of the President, upon a duly justified request of the Member responsible based on unforeseen and/or exceptional circumstances.",
+           "By the Secretary-General acting alone, at the request of the Member responsible.",
+           "By the President, at the request of the Secretary-General, in cases of administrative delay.",
+           "By the Member of the Commission responsible, informing the President."],
+     exp:"The chain matters: <strong>Member responsible requests (duly justified) → PRESIDENT authorises → SECRETARY-GENERAL sets the limit</strong>. And the text says twice — for expedited AND urgent — that the procedure <strong>shall not be used to make up for an administrative delay</strong>."},
+    {q:"The urgent written procedure, with a time limit of less than three working days, is used in particular for:",
+     opts:["The adoption of the Commission's communication on a Council position adopted under the ordinary legislative procedure.",
+           "The adoption of the Commission's annual work programme.",
+           "Decisions in the field of coordination and surveillance of Member States' economic and budgetary policies.",
+           "The approval of the minutes of Commission meetings."],
+     exp:"Art 21(3) names one specific use: the Commission's <strong>communication on a Council position under the OLP</strong> (first-reading choreography leaves no time). Economic and budgetary surveillance has its <strong>own</strong> written procedure — Article 23, with its special suspension regime."},
+    {q:"Under Article 25, an ongoing written procedure is suspended:",
+     opts:["By the Secretary-General, upon the reasoned request of ANY Member of the Commission, or on the Secretary-General's own initiative if the draft act does not meet the required conditions of substance or form.",
+           "By the President, upon the reasoned request of the Member of the Commission responsible only.",
+           "Automatically, whenever a Member of the Commission fails to reply within the time limit.",
+           "By the Legal Service, whenever it withdraws its positive opinion."],
+     exp:"Any single Member's <strong>reasoned request obliges the SG to suspend</strong>; the SG may also suspend <strong>on their own initiative</strong> for substance/form defects. Silence from a Member means consent — the act <strong>stands adopted on expiry</strong> of the time limit (Art 17(6)). Reopening (Art 26) requires the requester to lift the suspension and the conditions to be met."},
+    {q:"In the special written procedure of Article 23 (economic and budgetary surveillance), if the President considers a suspension request not well-founded:",
+     opts:["The President may refuse the suspension and continue the procedure, in which case the Secretary-General asks the position of the other Members to ensure, by analogy, respect of the quorum of Article 250 TFEU.",
+           "The procedure is automatically abandoned and the draft act is placed on the agenda of the next meeting.",
+           "The President refers the disagreement to a vote at the next ordinary meeting.",
+           "The suspension nevertheless takes effect, but for a maximum of five working days."],
+     exp:"The Article 23 exception: the <strong>President can override a suspension request</strong> — unlike Article 25, where any Member's request suspends automatically. The price of the override: the SG <strong>collects the positions of the other Members</strong> to replicate the quorum by analogy with <strong>Art 250 TFEU</strong>. Requests there must follow an 'impartial and objective assessment' of the draft."},
+    {q:"The finalisation written procedure of Article 22 may be initiated:",
+     opts:["On a proposal from the President, for a draft act placed on the agenda for oral adoption, if agreement was reached at the Hebdo with a positive Legal Service opinion, or if agreement was reached at the Commission meeting itself — in the latter case even without a positive opinion of the Legal Service.",
+           "On a proposal from the Secretary-General, for any draft act on which the Legal Service has given a positive opinion.",
+           "On a proposal from the President, only where the Legal Service has given its positive opinion in all cases.",
+           "At the request of the Member responsible, to make up for an administrative delay before the next meeting."],
+     exp:"Two doors: <strong>Hebdo agreement + positive LS opinion</strong>, or <strong>agreement at the Commission meeting — where the LS opinion is NOT required</strong>. Always on the <strong>President's proposal</strong>; expiry falls <strong>after the original meeting and before the next one</strong>; the act goes on the Article 28 list of sensitive/important written procedures."},
+    {q:"Under Article 17(3), any Member of the Commission may:",
+     opts:["Send the President a reasoned request for a draft act submitted by written procedure to be mentioned at a meeting or placed on its agenda.",
+           "Veto the adoption of a draft act by written procedure by simple notification to the Secretary-General.",
+           "Amend the draft act directly in the information technology system.",
+           "Extend the time limit of the written procedure by five additional working days."],
+     exp:"The 'pull it into the room' right: a <strong>reasoned request to the PRESIDENT</strong> (SG informed) to have the act discussed orally — if the President accepts, the written procedure is <strong>abandoned</strong> (Art 27(1)(c)). A bare veto doesn't exist; the suspension route of Art 25 runs through the <strong>SG</strong>, and only the <strong>Member responsible</strong> may amend the draft (Art 24)."}
+  ]},
+
+/* ==================== MODULE 4: EMPOWERMENT & DELEGATION ==================== */
+{ id:"m4", n:"4", name:"Empowerment & delegation", blurb:"Art 29–40 · Member vs DG · what can never be subdelegated",
+  cards:[
+    {q:"The difference between the empowerment procedure and the delegation procedure is that:",
+     opts:["Empowerment confers the power to adopt management or administrative acts of a routine and recurring nature on one or more MEMBERS of the Commission, while direct delegation confers it on Directors-General or Heads of Service.",
+           "Empowerment concerns politically sensitive acts, while delegation concerns routine acts.",
+           "Empowerment is granted by the President, while delegation is granted by the Secretary-General.",
+           "Empowerment may not be subdelegated, while delegation may be subdelegated without limits."],
+     exp:"Same subject-matter — <strong>routine and recurring management or administrative acts</strong>, on the Commission's behalf and under its responsibility — different recipient: <strong>Members (empowerment) vs Directors-General/Heads of Service (delegation)</strong>. Both decisions are submitted by the <strong>President</strong> and adopted by oral or finalisation written procedure; the Commission always <strong>retains the right to exercise the powers itself</strong>."},
+    {q:"Under Article 32, a Member of the Commission granted a general empowerment may subdelegate it:",
+     opts:["To a Director-General or Head of Service, in whole or in part, unless expressly prohibited in the empowerment decision — and may revoke the subdelegation at any time.",
+           "To another Member of the Commission, with the President's agreement.",
+           "To a Deputy Director-General, Director or Head of Unit.",
+           "To no one: general empowerments are strictly personal."],
+     exp:"The subdelegation chain: <strong>Member → DG or Head of Service</strong> (revocable at any time, notified to the Secretariat-General). The next link — <strong>DDG/Director/Head of Unit — exists ONLY for decisions selecting projects and awarding grants and procurement contracts</strong> (Art 33). The empowered Member remains <strong>accountable to the Commission</strong> throughout."},
+    {q:"Under Article 35, ad hoc empowerments:",
+     opts:["Are limited in time, concern one-off and specific measures whose substance the Commission has determined, are exercised in agreement with the President — and may NOT be subdelegated.",
+           "Are unlimited in time and may be subdelegated to Directors-General.",
+           "Are granted by the President alone for urgent matters between two meetings.",
+           "May be used only for acts with no budgetary implications."],
+     exp:"Ad hoc = <strong>one-off, time-limited, substance pre-determined by the College, always in agreement with the President, never subdelegated</strong>. Typical use: <strong>finalising an act approved 'in principle' once missing language versions arrive</strong> (the Art 8(4)(b) scenario). Requests must be justified and placed on a meeting agenda."},
+    {q:"Under Articles 33 and 39, subdelegation to a Deputy Director-General, Director or Head of Unit for decisions awarding grants and public procurement contracts applies where:",
+     opts:["The basic act provides that the Commission adopts a decision on its own or after consulting a committee which has delivered a favourable opinion — and such decisions are not subject to interservice consultation.",
+           "The value of the grant or contract falls below a threshold set annually by the Directorate-General for Budget.",
+           "The committee established under Regulation 182/2011 has delivered an unfavourable opinion.",
+           "The Member of the Commission responsible has given an ad hoc empowerment."],
+     exp:"Conditions: the basic act allows a Commission decision <strong>alone or after a FAVOURABLE committee opinion</strong>, and — the detail exams love — those decisions are exempt from <strong>interservice consultation</strong>. A Head of Unit can receive this subdelegation only <strong>in agreement with the Member responsible</strong>. No value threshold appears in the Rules."},
+    {q:"Which statement about the registers of empowerments and delegations is correct?",
+     opts:["The Secretariat-General keeps registers of general empowerments and of direct delegations, accessible on the Commission's intranet.",
+           "The Legal Service keeps both registers, published in the Official Journal.",
+           "Each Directorate-General keeps its own register, transmitted annually to the Court of Auditors.",
+           "The registers are kept by the President's cabinet and are classified."],
+     exp:"Articles 34 and 40: <strong>Secretariat-General · intranet</strong> — internal transparency, not OJ publication. Subdelegations of general empowerments are <strong>recorded in the register</strong> too."},
+    {q:"Under Article 31, before adopting an act by general empowerment:",
+     opts:["The positive opinion of the Legal Service and of the other services consulted is required — express or tacit — and the Secretariat-General verifies compliance with conditions of substance and form.",
+           "Only the agreement of the President is required.",
+           "The opinion of the Legal Service is required and must always be express.",
+           "The draft must first be mentioned at a meeting of the Commission."],
+     exp:"Same safeguards as a written procedure: <strong>positive LS + consulted services' opinions (express OR tacit)</strong>, SG verification, then the act stands adopted when the empowered Member's <strong>signature is recorded in the IT system</strong>. The empowered Member first decides whether the file deserves the <strong>oral or written route instead</strong> — consulting the President in case of doubt; if prevented, <strong>another Member</strong> may exercise the empowerment."},
+    {q:"Under Article 36(5), powers delegated directly to a Director-General or Head of Service:",
+     opts:["May not be subdelegated further, except for the grant and procurement decisions referred to in Article 39.",
+           "May be subdelegated freely within the service concerned.",
+           "May be subdelegated only back to the Member of the Commission responsible.",
+           "Lapse if the Director-General is prevented from exercising them."],
+     exp:"Direct delegation is a dead end <strong>except the Article 39 window</strong> (project selection, grants, procurement → DDG/Director/Head of Unit). If the DG is prevented, the powers pass to the official designated under the <strong>Article 52 deputising rules</strong> — they don't lapse."}
+  ]},
+
+/* ==================== MODULE 5: COMMON PROVISIONS & SERVICES ==================== */
+{ id:"m5", n:"5", name:"Acts, languages, SG & services", blurb:"Art 41–53 · who authenticates, who signs · the deputising cascade",
+  cards:[
+    {q:"Under Article 43, acts adopted by ORAL procedure are authenticated by:",
+     opts:["The handwritten or electronic signature of the Secretary-General on the summary note drawn up during the meeting at which they were adopted.",
+           "The handwritten or electronic signature of the President on the ordinary minutes of the meeting.",
+           "The joint signatures of the President and the Member responsible on the adoption sheet.",
+           "The signature of the Director-General of the Legal Service after legal-linguistic revision."],
+     exp:"Authentication map: oral → <strong>SG on the SUMMARY NOTE</strong>; written → <strong>SG on the DAY NOTE</strong>; empowerment → <strong>empowered Member on the adoption sheet</strong>; delegation → <strong>the (sub)delegated official on the adoption sheet</strong>. The acts are attached to those notes <strong>'in such a way that they cannot be separated'</strong>."},
+    {q:"Under Article 44, non-legislative regulations, directives and decisions not specifying an addressee, adopted by oral or written procedure, are deemed SIGNED by the President when:",
+     opts:["The President affixes their signature to the summary note referred to in Article 42.",
+           "The Secretary-General affixes their signature to the summary note.",
+           "The President signs each act individually before publication.",
+           "The act is published in the Official Journal of the European Union."],
+     exp:"Art 297(2) TFEU signature happens in bulk: <strong>the President signs the SUMMARY NOTE</strong>. Addressee-specific decisions are deemed signed by the <strong>Member responsible</strong> when the SG authenticates; for acts too urgent to await the next meeting, the <strong>SG's day-note signature</strong> stands in for the President's. Authentication (Art 43) and signature (Art 44) are different acts — a favourite confusion."},
+    {q:"Under Article 41, a draft act to be adopted by empowerment or delegation can be adopted only once:",
+     opts:["The language version(s) required for publication in the Official Journal or for notification to the addressee(s) are available.",
+           "All 24 official language versions are available.",
+           "The language versions stipulated by the President for the Members of the Commission are available.",
+           "The Legal Service has completed its legal-linguistic revision."],
+     exp:"For empowerment/delegation the binding condition is <strong>paragraph 1(b) — the OJ-publication or notification languages</strong>. Full coverage in <strong>all official languages</strong> is required only where the act is transmitted to other institutions and/or published in the OJ (Art 41(7)). For written procedures, a missing 1(b) version forces the SG to <strong>extend or suspend</strong>."},
+    {q:"Under Article 52, if a Director-General is prevented from exercising their functions, no replacement has been designated and there are several deputies, the functions are exercised by:",
+     opts:["The deputy present with the highest grade — in the event of equal grade, the one with the greatest seniority in the grade, and in the event of equal seniority, the eldest.",
+           "The deputy present with the greatest seniority in the service — in the event of equal seniority, the one with the highest grade.",
+           "The eldest deputy present, irrespective of grade.",
+           "The deputy designated by the Member of the Commission responsible."],
+     exp:"The cascade runs <strong>grade → seniority in grade → age</strong>. For the SG, DGs and Heads of Service the designated replacement comes from <strong>the Commission</strong>; for other hierarchical superiors, from the <strong>Director-General</strong>. With no deputy at all: the subordinate present in the <strong>highest function group with the highest grade</strong>, same tie-breaks."},
+    {q:"Under Article 53, the Legal Service:",
+     opts:["Reviews the legality of all draft acts independently and objectively, and has exclusive competence to represent the Commission before all courts and arbitration bodies.",
+           "Reviews the legality of draft legislative proposals only, and represents the Commission before the Court of Justice jointly with the service responsible.",
+           "Provides advice at the request of the President, and may delegate representation in court to external counsel appointed by the service concerned.",
+           "Reviews legality and represents the Commission before the Union courts, while national-court representation falls to the Directorates-General concerned."],
+     exp:"Two pillars: <strong>independent and objective legality review</strong> (compatibility with EU law including the Charter, and international law, of ALL draft acts and any document with legal implications, plus form and legal-linguistic revision) and <strong>EXCLUSIVE representation before ALL courts and arbitration bodies</strong> — no carve-outs."},
+    {q:"Under Article 50, in the event of disagreement between services, the Secretary-General:",
+     opts:["May take mediation or arbitration measures, under the authority of the President.",
+           "Shall refer the disagreement to the College for a vote.",
+           "Shall request the opinion of the Legal Service, which settles the disagreement.",
+           "May impose a solution, acting in full independence."],
+     exp:"<strong>Mediation or arbitration by the SG, under the President's authority</strong>. The SG also ensures notification, OJ publication and transmission of acts to the other institutions <strong>and to national parliaments</strong>, monitors quality and compliance with procedures, and keeps the Commission informed about internal and interinstitutional procedures."},
+    {q:"Under Article 47, specific functions or structures such as task forces pooling expertise from various services are set up by:",
+     opts:["The President, who determines their mandate, composition, duration, the responsible Member, the level of the head function and the administrative attachment.",
+           "The Commission, by oral procedure, on a proposal from the Secretary-General.",
+           "The Secretary-General, who determines their mandate and attaches them to the Secretariat-General.",
+           "The Directors-General concerned, by joint decision notified to the President."],
+     exp:"Task forces are another <strong>Presidential power</strong> — for tasks that no established service can handle optimally. A Commission decision may add implementing terms (resources, functioning), but creation, mandate, composition, duration and attachment come from <strong>the President</strong>."},
+    {q:"Under Article 51, Directors-General and Heads of Service shall draw up:",
+     opts:["Annual management plans setting out the results to be obtained, and annual activity reports that also certify the legality and regularity of the financial transactions carried out under their responsibility.",
+           "Annual management plans certifying the legality of financial transactions, and multiannual strategic plans approved by the Council.",
+           "Quarterly activity reports transmitted to the European Parliament's Committee on Budgetary Control.",
+           "Annual activity reports, while management plans are drawn up by the Secretariat-General."],
+     exp:"The management pair: <strong>annual management plan</strong> (results + means, feeding the multiannual strategic plan) and <strong>annual activity report</strong> — which contains the famous <strong>certification of legality and regularity</strong> of financial transactions. DGs also implement their slice of the budget and must <strong>identify, assess and mitigate risks</strong>."}
+  ]},
+
+/* ==================== MODULE 6: CONSULTATION & TRANSPARENCY ==================== */
+{ id:"m6", n:"6", name:"Interservice consultation & transparency", blurb:"Art 54–68 · 10 days, 48 hours, tacit agreement · who must always be consulted",
+  cards:[
+    {q:"Under Article 59, in a formal interservice consultation the services consulted are given:",
+     opts:["At least ten working days from the date the documents are made available, with silence within the time limit deemed a positive opinion (tacit agreement).",
+           "At least ten working days, with silence deemed a negative opinion requiring escalation.",
+           "At least five working days from the launch of the consultation, extendable once.",
+           "At least ten calendar days, with express opinions required from the Legal Service."],
+     exp:"<strong>TEN working days + tacit agreement</strong>: no reaction in time = positive opinion. Positive opinions — including the Legal Service's — <strong>may be express or tacit</strong>. Five working days is the ordinary written procedure; don't let the deadlines bleed into each other."},
+    {q:"Under Article 60, the fast-track interservice consultation:",
+     opts:["Is decided on by the Secretariat-General upon a duly substantiated request from the service responsible, may take place in a meeting or in writing, and in principle involves a minimum of 48 hours.",
+           "Is decided on by the President upon request of the Member responsible, and takes place only in writing within 24 hours.",
+           "Is decided on by the service responsible itself, provided the Legal Service agrees.",
+           "May be used to make up for administrative delays where the ten-day limit was missed."],
+     exp:"The <strong>SECRETARIAT-GENERAL decides</strong> (and informs the President) whether fast-track is justified and whether it runs <strong>by meeting or in writing</strong>; documents 48 hours before the meeting, or a written limit of <strong>not less than 48 hours</strong> (SG can derogate) — the 48 hours <strong>exclude public holidays and weekends</strong>. And, as always: <strong>not a remedy for administrative delay</strong>."},
+    {q:"Under Article 57, consultation of the Legal Service is required:",
+     opts:["On all draft acts, Commission staff working documents and all documents with possible legal implications — except draft acts of a recurrent nature, whose exemption requires the prior formal agreement of the Legal Service itself.",
+           "On all draft acts without exception, including recurrent acts.",
+           "Only on draft legislative proposals and international agreements.",
+           "On draft acts selected by the Secretariat-General on the basis of their political sensitivity."],
+     exp:"Default: <strong>everything</strong> with legal implications. The only exit: <strong>recurrent acts — and the exemption itself needs the LS's prior FORMAL agreement</strong>. Compare Art 58: <strong>DG Budget</strong> must be consulted on anything affecting budget and finances (including contingent liabilities), <strong>DG HR</strong> on anything affecting staff and administration."},
+    {q:"Under Article 62(3), before a draft implementing act is submitted for a vote to the representatives of the Member States in a comitology committee:",
+     opts:["The positive opinion of the Legal Service and of the other services consulted is required.",
+           "The agreement of the President and of the Member responsible is required.",
+           "The Regulatory Scrutiny Board must issue a favourable opinion.",
+           "The draft must have been adopted by the Commission by oral procedure."],
+     exp:"An easily missed rule: the <strong>LS-plus-consulted-services positive opinion</strong> gate applies not only to adoption but already <strong>before the comitology vote</strong> on a draft implementing act. After any consultation, the service responsible must revise the draft, recirculate it in good time, and <strong>explain any comments it did not take on board</strong>."},
+    {q:"Under Article 56, the Secretariat-General must be consulted on all draft acts to be adopted by ORAL procedure:",
+     opts:["Except those presented under miscellaneous administrative and budgetary matters of individual scope.",
+           "Without any exception.",
+           "Only where they are politically sensitive and/or important.",
+           "Only where they feature in the Commission's annual work programme."],
+     exp:"The oral-procedure rule has ONE carve-out: <strong>miscellaneous administrative and budgetary matters of individual scope</strong>. Independently of the procedure, the SG must also see acts that are <strong>sensitive/important · in the work programme · institutional · subject to evaluation, fitness check, public consultation or impact assessment</strong> — plus positions committing the Commission externally and <strong>joint initiatives with the High Representative</strong>."},
+    {q:"Under Article 65, the right of access to Commission documents belongs to:",
+     opts:["Any citizen of the Union and any natural or legal person residing or having its registered office in a Member State, subject to the conditions of Regulation (EC) No 1049/2001.",
+           "Any citizen of the Union only, subject to the conditions of Regulation (EC) No 1049/2001.",
+           "Any natural or legal person worldwide, without conditions.",
+           "Citizens of the Union and accredited journalists, subject to Regulation (EU) 2018/1725."],
+     exp:"The 1049/2001 formula: <strong>Union citizens + any natural or legal person RESIDING or with REGISTERED OFFICE in a Member State</strong> — anchored in Art 15(3) TFEU and Art 42 of the Charter. Regulation 2018/1725 is the <strong>data protection</strong> regulation (Art 68), where the <strong>Data Protection Officer acts independently</strong>."},
+    {q:"Under Article 67(3), classified information at the level of CONFIDENTIEL UE/EU CONFIDENTIAL or higher can be accessed only by staff who:",
+     opts:["Have obtained a security clearance from the national authorities of their country of origin.",
+           "Have obtained a security clearance issued by the Commission's Directorate-General for Human Resources and Security.",
+           "Hold a post of Head of Unit or higher.",
+           "Have signed a specific confidentiality declaration with the Secretariat-General."],
+     exp:"Clearance comes from the <strong>NATIONAL authorities of the country of origin</strong> — not from the Commission itself. Baseline: Members AND all staff carry a <strong>general confidentiality obligation</strong> (Art 339 TFEU echo) over discussions, information and documents."},
+    {q:"Under Article 69, at the start of the Commission's term of office, the Commission's working methods are adopted by:",
+     opts:["The President, who may adopt any decision relating to the Commission's functioning and internal organisation.",
+           "The College, acting by written procedure on a proposal from the Secretary-General.",
+           "The European Council, when appointing the Commission.",
+           "The Conference of Presidents of the European Parliament."],
+     exp:"Article 69(2): the <strong>PRESIDENT</strong> may adopt any decision on functioning and internal organisation — <strong>including the working methods at the start of the term</strong> (in practice a Communication from the President). The Commission as a body may add internal decisions and administrative instructions to supplement the Rules."}
+  ]}
+
+];
+
+/* give every question a stable id */
+MODULES.forEach(m => m.cards.forEach((c,i)=> c.id = m.id+"_"+i));
+
+/* ============================ STORAGE ============================ */
+const STORE_KEY = "com_rop_mcq_v1";
+const memStore = {};
+async function loadProgress(){
+  try{
+    const s = localStorage.getItem(STORE_KEY);
+    return s ? JSON.parse(s) : {};
+  }catch(e){
+    return memStore[STORE_KEY] ? JSON.parse(memStore[STORE_KEY]) : {};
+  }
+}
+async function saveProgress(obj){
+  const s = JSON.stringify(obj);
+  memStore[STORE_KEY] = s;
+  try{ localStorage.setItem(STORE_KEY, s); }catch(e){/* in-memory only */}
+}
+
+let progress = {};
+function isKnown(id){ return progress[id] === "known"; }
+function moduleKnown(m){ return m.cards.filter(c=>isKnown(c.id)).length; }
+
+/* ============================ STAR RING ============================ */
+function buildRing(elm, lit, total, size){
+  total = total || 12; size = size || 54;
+  const r = size/2 - size*0.13;
+  const fs = size*0.17;
+  elm.innerHTML = "";
+  elm.classList.add("ring");
+  elm.style.width = size+"px"; elm.style.height = size+"px";
+  for(let i=0;i<total;i++){
+    const ang = i*(360/total);
+    const s = document.createElement("span");
+    s.className = "star" + (i<lit ? " lit":"");
+    s.textContent = "★";
+    s.style.fontSize = fs+"px";
+    s.style.transform = "translate(-50%,-50%) rotate("+ang+"deg) translateY("+(-r)+"px) rotate("+(-ang)+"deg)";
+    elm.appendChild(s);
+  }
+  const c = document.createElement("div");
+  c.className = "center";
+  c.style.fontSize = (size*0.22)+"px";
+  c.textContent = Math.round((lit/total)*100)+"%";
+  elm.appendChild(c);
+}
+function ringLit(known, total){ return total===0?0:Math.round((known/total)*12); }
+
+/* ============================ HOME ============================ */
+const el = id => document.getElementById(id);
+
+function renderHome(){
+  const totalCards = MODULES.reduce((a,m)=>a+m.cards.length,0);
+  const knownCards = MODULES.reduce((a,m)=>a+moduleKnown(m),0);
+  el("globalTally").textContent = knownCards+" / "+totalCards+" mastered";
+  buildRing(el("mastRing"), ringLit(knownCards,totalCards), 12, 52);
+
+  const list = el("modList");
+  list.innerHTML = "";
+  MODULES.forEach(m=>{
+    const known = moduleKnown(m), tot = m.cards.length;
+    const pct = tot? known/tot : 0;
+    const b = document.createElement("button");
+    b.className = "mod";
+    b.innerHTML =
+      '<span class="num">'+m.n+'</span>'+
+      '<span class="body">'+
+        '<p class="title">'+m.name+'</p>'+
+        '<p class="blurb">'+m.blurb+'</p>'+
+        '<span class="barwrap"><span class="bar '+(pct>=1?'done':'')+'" style="width:'+Math.round(pct*100)+'%"></span></span>'+
+      '</span>'+
+      '<span class="ring-wrap"></span>';
+    b.addEventListener("click", ()=> openDeck(m));
+    list.appendChild(b);
+    buildRing(b.querySelector(".ring-wrap"), ringLit(known,tot), 12, 46);
+  });
+}
+
+/* ============================ STUDY ============================ */
+let curMod=null, order=[], idx=0, missesOnly=false, reviewAll=false;
+let answered=false, sessRight=0, sessTotal=0;
+const LETTERS = ["a","b","c","d"];
+
+function buildOrder(){
+  let cards;
+  if(reviewAll){
+    cards = [];
+    MODULES.forEach(m=> m.cards.forEach(c=> cards.push(Object.assign({_mod:m},c))));
+  } else {
+    cards = curMod.cards.map(c=> Object.assign({_mod:curMod},c));
+  }
+  if(missesOnly) cards = cards.filter(c=> !isKnown(c.id));
+  return cards;
+}
+
+function openDeck(m, all){
+  reviewAll = !!all;
+  curMod = m || null;
+  missesOnly = false;
+  sessRight = 0; sessTotal = 0;
+  el("missesToggle").classList.remove("on");
+  order = buildOrder();
+  idx = 0;
+  el("home").classList.add("hidden");
+  el("study").classList.add("active");
+  const title = reviewAll ? "Full mock" : m.name;
+  const sub = reviewAll ? "All questions from the 6 modules, shuffled" : "Module "+m.n;
+  el("deckName").firstChild.nodeValue = title;
+  el("deckSub").textContent = sub;
+  if(reviewAll) shuffleOrder();
+  renderCard();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function closeDeck(){
+  el("study").classList.remove("active");
+  el("home").classList.remove("hidden");
+  renderHome();
+}
+
+function renderCard(){
+  answered = false;
+  el("explain").classList.remove("show","good","bad");
+  el("doneBanner").classList.remove("show");
+  el("qcard").style.display = "";
+  el("nextBtn").style.visibility = "hidden";
+  el("sessScore").textContent = sessTotal>0 ? ("Session: "+sessRight+"/"+sessTotal) : "";
+
+  if(order.length === 0){
+    el("qcard").style.display = "none";
+    el("cardPos").textContent = "0";
+    el("cardTotal").textContent = "0";
+    el("doneBanner").classList.add("show");
+    const known = curMod? moduleKnown(curMod): MODULES.reduce((a,m)=>a+moduleKnown(m),0);
+    const tot = curMod? curMod.cards.length : MODULES.reduce((a,m)=>a+m.cards.length,0);
+    buildRing(el("doneRing"), ringLit(known,tot), 12, 58);
+    updateDeckRing();
+    return;
+  }
+
+  if(idx>=order.length) idx = order.length-1;
+  const c = order[idx];
+  el("frontTag").textContent = c._mod ? c._mod.name : "Module";
+  el("qText").innerHTML = c.q;
+  el("cardPos").textContent = (idx+1);
+  el("cardTotal").textContent = order.length;
+  el("prevBtn").disabled = idx===0;
+
+  /* shuffle options; original index 0 is correct */
+  const perm = [0,1,2,3].slice(0, c.opts.length);
+  for(let i=perm.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const t=perm[i]; perm[i]=perm[j]; perm[j]=t;
+  }
+  const optsBox = el("opts");
+  optsBox.innerHTML = "";
+  perm.forEach((origIdx, pos)=>{
+    const b = document.createElement("button");
+    b.className = "opt";
+    b.dataset.orig = origIdx;
+    b.innerHTML = '<span class="letter">'+LETTERS[pos]+'</span><span>'+c.opts[origIdx]+'</span>';
+    b.addEventListener("click", ()=> answer(b, origIdx===0));
+    optsBox.appendChild(b);
+  });
+
+  updateDeckRing();
+}
+
+async function answer(btn, correct){
+  if(answered) return;
+  answered = true;
+  sessTotal++;
+  const c = order[idx];
+
+  const buttons = Array.from(el("opts").children);
+  buttons.forEach(b=>{
+    b.disabled = true;
+    const isCorrect = b.dataset.orig === "0";
+    if(isCorrect) b.classList.add("correct");
+    else if(b===btn) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+
+  const exp = el("explain");
+  if(correct){
+    sessRight++;
+    progress[c.id] = "known";
+    exp.classList.add("good");
+    el("verdictHead").textContent = "Correct — mastered";
+  } else {
+    delete progress[c.id];
+    exp.classList.add("bad");
+    el("verdictHead").textContent = "Not quite — kept in your review pool";
+  }
+  el("expText").innerHTML = c.exp;
+  exp.classList.add("show");
+  el("sessScore").textContent = "Session: "+sessRight+"/"+sessTotal;
+  el("nextBtn").style.visibility = "visible";
+  await saveProgress(progress);
+  updateDeckRing();
+}
+
+function next(){
+  if(!answered && order.length>0) return;
+  if(idx < order.length-1){ idx++; renderCard(); }
+  else {
+    if(missesOnly){ order = buildOrder(); idx = 0; renderCard(); }
+    else checkComplete();
+  }
+}
+
+function checkComplete(){
+  const allKnown = order.length>0 && order.every(c=> isKnown(c.id));
+  if(allKnown){
+    el("qcard").style.display="none";
+    el("nextBtn").style.visibility="hidden";
+    el("doneBanner").classList.add("show");
+    const known = curMod? moduleKnown(curMod): MODULES.reduce((a,m)=>a+moduleKnown(m),0);
+    const tot = curMod? curMod.cards.length : MODULES.reduce((a,m)=>a+m.cards.length,0);
+    buildRing(el("doneRing"), ringLit(known,tot), 12, 58);
+  } else {
+    /* re-run the ones still missed */
+    order = order.filter(c=> !isKnown(c.id));
+    idx = 0; renderCard();
+  }
+}
+
+function updateDeckRing(){
+  if(reviewAll){
+    const known = MODULES.reduce((a,m)=>a+moduleKnown(m),0);
+    const tot = MODULES.reduce((a,m)=>a+m.cards.length,0);
+    buildRing(el("deckRing"), ringLit(known,tot), 12, 46);
+  } else if(curMod){
+    buildRing(el("deckRing"), ringLit(moduleKnown(curMod), curMod.cards.length), 12, 46);
+  }
+}
+
+function shuffleOrder(){
+  for(let i=order.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const t=order[i]; order[i]=order[j]; order[j]=t;
+  }
+  idx=0;
+}
+
+/* ============================ EVENTS ============================ */
+el("nextBtn").addEventListener("click", next);
+el("prevBtn").addEventListener("click", ()=>{ if(idx>0){idx--;renderCard();} });
+el("shuffleBtn").addEventListener("click", ()=>{ shuffleOrder(); renderCard(); });
+el("backBtn").addEventListener("click", closeDeck);
+el("reviewAllBtn").addEventListener("click", ()=> openDeck(null, true));
+el("missesToggle").addEventListener("click", ()=>{
+  missesOnly = !missesOnly;
+  el("missesToggle").classList.toggle("on", missesOnly);
+  order = buildOrder(); idx=0; renderCard();
+});
+el("resetBtn").addEventListener("click", async ()=>{
+  if(confirm("Reset all progress? This will clear your mastered-question marks.")){
+    progress = {};
+    await saveProgress(progress);
+    renderHome();
+  }
+});
+document.addEventListener("keydown", e=>{
+  if(!el("study").classList.contains("active")) return;
+  const keys = {"1":0,"2":1,"3":2,"4":3,"a":0,"b":1,"c":2,"d":3};
+  if(!answered && (e.key in keys)){
+    const buttons = el("opts").children;
+    if(buttons[keys[e.key]]) buttons[keys[e.key]].click();
+  } else if(answered && (e.code==="Space" || e.code==="ArrowRight" || e.key==="Enter")){
+    e.preventDefault(); next();
+  } else if(e.code==="ArrowLeft" && idx>0){ idx--; renderCard(); }
+});
+
+/* ============================ INIT ============================ */
+(async function init(){
+  progress = await loadProgress();
+  renderHome();
+})();
+</script>
+</body>
+</html>
